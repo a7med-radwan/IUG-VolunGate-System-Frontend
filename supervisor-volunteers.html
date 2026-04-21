@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة المتطوعين | IUG VolunGate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">م</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">د. سامي صالح</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مشرف أكاديمي</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">1</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>قائمة التنبيهات</span>
+                        <span style="color: var(--blue); font-size: 0.7rem;">تحديد كقروء</span>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-icon" style="background: #fdf2f2; color: #e74c3c;"><i class="fas fa-clock"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">تأخر في مهمة: فريق التوجيه</span>
+                            <span class="notif-time">منذ 10 دقائق</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — إدارة المتطوعين
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="supervisor-dashboard.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <span>نظرة عامة</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">إدارة المتطوعين</div>
+        <a href="supervisor-volunteers.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <span>إدارة المتطوعين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-teams.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-users-cog"></i>
+                <span>إدارة الفرق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-tasks.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>توزيع المهام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-invoice"></i>
+                <span>تقارير الفريق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="section-header-bar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span>إدارة وتسجيل المتطوعين الجدد</span>
+                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">
+                    إجمالي المتطوعين: <span id="vCountLabel">2</span>
+                </span>
+            </div>
+            <button class="btn-portal btn-portal-blue" onclick="toggleModal('addVolunteerModal', true)">
+                <i class="fas fa-plus"></i> إضافة متطوع جديد
+            </button>
+        </div>
+
+        <div class="action-bar">
+            <div style="font-weight: 700; color: #555;">قائمة المتطوعين المسجلين في القسم</div>
+            <div style="flex: 1;"></div>
+            <div style="display: flex; gap: 10px;">
+                <div style="display: flex; align-items: center; border: 1px solid #ddd; padding: 0 10px; border-radius: 4px; background: #fff;">
+                    <i class="fas fa-search" style="color: #999; font-size: 0.8rem;"></i>
+                    <input type="text" id="vSearchInput" placeholder="البحث بالاسم أو الرقم..." style="border: none; background: transparent; padding: 8px; font-size: 0.8rem; outline: none; width: 200px;">
+                </div>
+                <select id="vStatusFilter" style="padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.8rem; outline: none; background: #fff;">
+                    <option value="">جميع الحالات</option>
+                    <option value="متاح">متاح</option>
+                    <option value="في مهمة">في مهمة</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="background: white; border: 1px solid var(--border-color);">
+            <table class="portal-table">
+                <thead>
+                    <tr>
+                        <th>الرقم الجامعي</th>
+                        <th>اسم المتطوع</th>
+                        <th>الكلية/القسم</th>
+                        <th>ساعات التطوع</th>
+                        <th>المستوى</th>
+                        <th>التقييم</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody id="volunteersTableBody">
+                    <tr class="volunteer-row" data-status="نشط">
+                        <td class="v-id" style="text-align: center;">120210456</td>
+                        <td class="v-name" style="font-weight: 700;">أحمد سليم الخالدي</td>
+                        <td class="v-dept">هندسة البرمجيات</td>
+                        <td style="text-align: center;">22 ساعة</td>
+                        <td style="text-align: center;">مستوى رابع</td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="btn-portal btn-portal-grey btn-edit" style="padding: 4px 8px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                            <button class="btn-portal btn-portal-red btn-delete" style="padding: 4px 8px;" title="حذف"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="volunteer-row" data-status="نشط">
+                        <td class="v-id" style="text-align: center;">120220892</td>
+                        <td class="v-name" style="font-weight: 700;">سارة يوسف النجار</td>
+                        <td class="v-dept">التمريض</td>
+                        <td style="text-align: center;">15 ساعة</td>
+                        <td style="text-align: center;">مستوى ثالث</td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="btn-portal btn-portal-grey btn-edit" style="padding: 4px 8px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                            <button class="btn-portal btn-portal-red btn-delete" style="padding: 4px 8px;" title="حذف"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr class="volunteer-row" data-status="نشط">
+                        <td class="v-id" style="text-align: center;">120200123</td>
+                        <td class="v-name" style="font-weight: 700;">ياسين محمد عودة</td>
+                        <td class="v-dept">تكنولوجيا المعلومات</td>
+                        <td style="text-align: center;">30 ساعة</td>
+                        <td style="text-align: center;">مستوى رابع</td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="fas fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                            <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="btn-portal btn-portal-grey btn-edit" style="padding: 4px 8px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                            <button class="btn-portal btn-portal-red btn-delete" style="padding: 4px 8px;" title="حذف"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Volunteer -->
+    <div class="modal-overlay" id="addVolunteerModal">
+        <div class="modal-content" style="width: 550px;">
+            <div class="modal-header">
+                <span id="volunteerModalTitle">تسجيل متطوع جديد في النظام</span>
+                <i class="fas fa-times" style="cursor:pointer;" onclick="toggleModal('addVolunteerModal', false)"></i>
+            </div>
+            <div class="modal-body">
+                <form id="addVolunteerForm">
+                    <input type="hidden" id="editVolunteerIndex" value="">
+                    <div class="form-group">
+                        <label>الاسم الكامل</label>
+                        <input type="text" id="vName" class="form-control" placeholder="أدخل الاسم الرباعي للطالب" required>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label>الرقم الجامعي</label>
+                            <input type="text" id="vID" class="form-control" placeholder="120XXXXXX" required>
+                        </div>
+                        <div class="form-group">
+                            <label>الكلية / القسم</label>
+                            <select id="vDept" class="form-control">
+                                <option>تكنولوجيا المعلومات</option>
+                                <option>الهندسة</option>
+                                <option>التمريض</option>
+                                <option>الآداب</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني الجامعي</label>
+                        <input type="email" id="vEmail" class="form-control" placeholder="student@email.iugaza.edu">
+                    </div>
+                    <div style="display:flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                        <button type="button" class="btn-portal btn-portal-grey" onclick="toggleModal('addVolunteerModal', false)">إلغاء</button>
+                        <button type="submit" id="btnSubmitVolunteer" class="btn-portal btn-portal-blue">تسجيل المتطوع</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-banner">
+        نظام إدارة التطوع — الجامعة الإسلامية غزة | بوابة المشرفين
+    </footer>
+
+    <script>
+        let currentEditingRow = null;
+
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        function prepareAddModal() {
+            document.getElementById('addVolunteerForm').reset();
+            document.getElementById('editVolunteerIndex').value = "";
+            document.getElementById('volunteerModalTitle').innerText = "تسجيل متطوع جديد في النظام";
+            document.getElementById('btnSubmitVolunteer').innerText = "تسجيل المتطوع";
+            toggleModal('addVolunteerModal', true);
+        }
+
+        function createVolunteerRow(id, name, dept, status, hours = "0 ساعة") {
+            const tr = document.createElement('tr');
+            tr.className = "volunteer-row";
+            tr.setAttribute('data-status', status || 'نشط');
+
+            tr.innerHTML = `
+                <td class="v-id" style="text-align: center;">${id}</td>
+                <td class="v-name" style="font-weight: 700;">${name}</td>
+                <td class="v-dept">${dept}</td>
+                <td style="text-align: center;">${hours}</td>
+                <td style="text-align: center;">مستوى أول</td>
+                <td style="text-align: center;">
+                    <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                    <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                    <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                    <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                    <i class="far fa-star" style="color: #f1c40f; font-size: 0.7rem;"></i>
+                </td>
+                <td style="text-align: center;">
+                    <button class="btn-portal btn-portal-grey btn-edit" style="padding: 4px 8px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                    <button class="btn-portal btn-portal-red btn-delete" style="padding: 4px 8px;" title="حذف"><i class="fas fa-trash"></i></button>
+                </td>
+            `;
+            return tr;
+        }
+
+        // Add/Edit Volunteer Logic
+        document.getElementById('addVolunteerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('vName').value;
+            const id = document.getElementById('vID').value;
+            const dept = document.getElementById('vDept').value;
+            const editIndex = document.getElementById('editVolunteerIndex').value;
+
+            if (editIndex !== "") {
+                // Edit Mode
+                currentEditingRow.querySelector('.v-name').innerText = name;
+                currentEditingRow.querySelector('.v-id').innerText = id;
+                currentEditingRow.querySelector('.v-dept').innerText = dept;
+            } else {
+                // Add Mode
+                const tbody = document.getElementById('volunteersTableBody');
+                const newRow = createVolunteerRow(id, name, dept, "متاح");
+                tbody.prepend(newRow);
+            }
+            
+            const wasEditing = editIndex !== "";
+            this.reset();
+            toggleModal('addVolunteerModal', false);
+            currentEditingRow = null;
+            showPortalAlert({
+                title: wasEditing ? 'تم التعديل بنجاح' : 'تم التسجيل بنجاح',
+                message: wasEditing
+                    ? 'تم حفظ بيانات المتطوع المحدثة بنجاح في السجل.'
+                    : 'تمت إضافة المتطوع الجديد إلى قائمة فريقك بنجاح.',
+                type: 'success'
+            });
+        });
+
+        // Table Action Listeners (Event Delegation)
+        document.getElementById('volunteersTableBody').addEventListener('click', function(e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            // Handle Delete
+            if (e.target.closest('.btn-delete')) {
+                const volunteerName = row.querySelector('.v-name')?.innerText || 'هذا المتطوع';
+                showPortalAlert({
+                    title: 'حذف المتطوع',
+                    message: `هل أنت متأكد من رغبتك في حذف <strong>${volunteerName}</strong> نهائياً من قائمة المتطوعين؟ لا يمكن التراجع عن هذا الإجراء.`,
+                    type: 'danger',
+                    confirmText: 'نعم، احذف',
+                    cancelText: 'تراجع',
+                    onConfirm: () => {
+                        row.remove();
+                        updateVolunteersCountActive();
+                        showPortalAlert({
+                            title: 'تم الحذف',
+                            message: `تم حذف المتطوع <strong>${volunteerName}</strong> من قائمة الفريق بنجاح.`,
+                            type: 'success'
+                        });
+                    }
+                });
+            }
+
+            // Handle Edit
+            if (e.target.closest('.btn-edit')) {
+                currentEditingRow = row;
+                const id = row.querySelector('.v-id').innerText;
+                const name = row.querySelector('.v-name').innerText;
+                const dept = row.querySelector('.v-dept').innerText;
+
+                document.getElementById('vName').value = name;
+                document.getElementById('vID').value = id;
+                document.getElementById('vDept').value = dept;
+                document.getElementById('editVolunteerIndex').value = "editing";
+
+                document.getElementById('volunteerModalTitle').innerText = "تعديل بيانات المتطوع";
+                document.getElementById('btnSubmitVolunteer').innerText = "حفظ التعديلات";
+                toggleModal('addVolunteerModal', true);
+            }
+        });
+
+        // Unified Filtering Logic
+        function applyVolunteerFilters() {
+            const query = document.getElementById('vSearchInput').value.toLowerCase();
+            const status = document.getElementById('vStatusFilter').value;
+            const rows = document.querySelectorAll('.volunteer-row');
+
+            rows.forEach(row => {
+                const nameText = row.querySelector('.v-name').innerText.toLowerCase();
+                const idText = row.querySelector('.v-id').innerText.toLowerCase();
+                const vStatus = row.getAttribute('data-status');
+
+                const matchesSearch = nameText.includes(query) || idText.includes(query);
+                const matchesStatus = status === "" || vStatus === status;
+
+                row.style.display = (matchesSearch && matchesStatus) ? "" : "none";
+            });
+            updateVolunteersCountActive();
+        }
+
+        function updateVolunteersCountActive() {
+            const label = document.getElementById('vCountLabel');
+            const visible = document.querySelectorAll('#volunteersTableBody tr:not([style*="display: none"])').length;
+            label.innerText = visible;
+        }
+
+        // Event Listeners
+        document.getElementById('vSearchInput').addEventListener('input', applyVolunteerFilters);
+        document.getElementById('vStatusFilter').addEventListener('change', applyVolunteerFilters);
+    </script>
+</body>
+</html>

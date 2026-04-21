@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الفرق التطوعية | IUG VolunGate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">م</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">د. سامي صالح</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مشرف أكاديمي</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">1</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>قائمة التنبيهات</span>
+                        <span style="color: var(--blue); font-size: 0.7rem;">تحديد كقروء</span>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-icon" style="background: #fdf2f2; color: #e74c3c;"><i class="fas fa-clock"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">تأخر في مهمة: فريق التوجيه</span>
+                            <span class="notif-time">منذ 10 دقائق</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — إدارة الفرق
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="supervisor-dashboard.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <span>نظرة عامة</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">إدارة المتطوعين</div>
+        <a href="supervisor-volunteers.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <span>إدارة المتطوعين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-teams.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-users-cog"></i>
+                <span>إدارة الفرق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-tasks.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>توزيع المهام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-invoice"></i>
+                <span>تقارير الفريق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="section-header-bar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span>إدارة فرق العمل التطوعي</span>
+                <span style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">
+                    إجمالي الفرق: <span id="teamsCountLabel">3</span>
+                </span>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button class="btn-portal btn-portal-green" onclick="toggleModal('addTeamModal', true)">
+                    <i class="fas fa-plus"></i> إنشاء فريق جديد
+                </button>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <div style="font-weight: 700; color: #555;">متابعة وإدارة فرق التطوع</div>
+            <div style="flex: 1;"></div>
+            <div style="display: flex; gap: 10px;">
+                <div style="display: flex; align-items: center; border: 1px solid #ddd; padding: 0 10px; border-radius: 4px; background: #fff;">
+                    <i class="fas fa-search" style="color: #999; font-size: 0.8rem;"></i>
+                    <input type="text" id="teamSearchInput" placeholder="البحث عن فريق..." style="border: none; background: transparent; padding: 8px; font-size: 0.8rem; outline: none; width: 220px;">
+                </div>
+                <select id="teamStatusFilter" style="padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.8rem; outline: none; background: #fff;">
+                    <option value="">جميع الحالات</option>
+                    <option value="نشط">نشط</option>
+                    <option value="مكتمل">مكتمل</option>
+                </select>
+            </div>
+        </div>
+
+        <table class="portal-table">
+            <thead>
+                <tr>
+                    <th>اسم الفريق</th>
+                    <th>القسم / المجال</th>
+                    <th>عدد المتطوعين</th>
+                    <th>الحالة</th>
+                    <th>تاريخ الإنشاء</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody id="teamsTableBody">
+                <tr data-members="">
+                    <td class="team-name" style="font-weight: 700;">فريق الإحصاء البيئي</td>
+                    <td class="team-dept">كلية الهندسة</td>
+                    <td class="team-voters">5 متطوعين</td>
+                    <td class="team-status-col"><span class="status-badge" style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">نشط</span></td>
+                    <td class="team-date">2026-04-18</td>
+                    <td>
+                        <button class="btn-portal btn-portal-blue" onclick="openAssignModal(this)" style="padding: 5px 10px;" title="إضافة متطوعين"><i class="fas fa-user-plus"></i></button>
+                        <button class="btn-portal btn-portal-grey btn-edit-team" style="padding: 5px 10px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                        <button class="btn-portal btn-portal-red btn-delete-team" style="padding: 5px 10px;" title="حذف"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr data-members="">
+                    <td class="team-name" style="font-weight: 700;">لجنة التنظيم اللوجستي</td>
+                    <td class="team-dept">شؤون الطلاب</td>
+                    <td class="team-voters">12 متطوع</td>
+                    <td class="team-status-col"><span class="status-badge" style="background: #fff3e0; color: #ef6c00; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">قيد التشكيل</span></td>
+                    <td class="team-date">2026-04-20</td>
+                    <td>
+                        <button class="btn-portal btn-portal-blue" onclick="openAssignModal(this)" style="padding: 5px 10px;" title="إضافة متطوعين"><i class="fas fa-user-plus"></i></button>
+                        <button class="btn-portal btn-portal-grey btn-edit-team" style="padding: 5px 10px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                        <button class="btn-portal btn-portal-red btn-delete-team" style="padding: 5px 10px;" title="حذف"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr data-members="">
+                    <td class="team-name" style="font-weight: 700;">فريق التوعية الرقمية</td>
+                    <td class="team-dept">تكنولوجيا المعلومات</td>
+                    <td class="team-voters">4 متطوعين</td>
+                    <td class="team-status-col"><span class="status-badge" style="background: #fdf2f2; color: #e74c3c; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">مكتمل</span></td>
+                    <td class="team-date">2026-04-15</td>
+                    <td>
+                        <button class="btn-portal btn-portal-blue" onclick="openAssignModal(this)" style="padding: 5px 10px;" title="إضافة متطوعين"><i class="fas fa-user-plus"></i></button>
+                        <button class="btn-portal btn-portal-grey btn-edit-team" style="padding: 5px 10px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                        <button class="btn-portal btn-portal-red btn-delete-team" style="padding: 5px 10px;" title="حذف"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal for Adding Team -->
+        <div class="modal-overlay" id="addTeamModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>إنشاء فريق تطوعي جديد</span>
+                    <i class="fas fa-times" style="cursor:pointer;" onclick="toggleModal('addTeamModal', false)"></i>
+                </div>
+                <div class="modal-body">
+                    <form id="addTeamForm">
+                        <div class="form-group">
+                            <label>اسم الفريق</label>
+                            <input type="text" id="addTeamName" class="form-control" placeholder="مثلاً: فريق الإرشاد الجامعي" required>
+                        </div>
+                        <div class="form-group">
+                            <label>القسم / الجهة المستفيدة</label>
+                            <input type="text" id="addTeamDept" class="form-control" placeholder="مثلاً: عمادة القبول والتسجيل، العلاقات العامة...">
+                        </div>
+                        <div class="form-group">
+                            <label>وصف المهام العامة</label>
+                            <textarea id="addTeamDesc" class="form-control" rows="3" placeholder="اكتب وصفاً موجزاً لمهام الفريق..."></textarea>
+                        </div>
+                        <div style="display:flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                            <button type="button" class="btn-portal btn-portal-grey" onclick="toggleModal('addTeamModal', false)">إلغاء</button>
+                            <button type="submit" class="btn-portal btn-portal-green">حفظ وإنشاء</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Editing Team -->
+        <div class="modal-overlay" id="editTeamModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>تعديل بيانات الفريق</span>
+                    <i class="fas fa-times" style="cursor:pointer;" onclick="toggleModal('editTeamModal', false)"></i>
+                </div>
+                <div class="modal-body">
+                    <form id="editTeamForm">
+                        <input type="hidden" id="editTeamId">
+                        <div class="form-group">
+                            <label>اسم الفريق</label>
+                            <input type="text" id="editTeamName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>القسم / المجال</label>
+                            <input type="text" id="editTeamDept" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>حالة الفريق</label>
+                            <select id="editTeamStatus" class="form-control">
+                                <option value="نشط">نشط</option>
+                                <option value="قيد التوزيع">قيد التوزيع</option>
+                                <option value="مكتمل">مكتمل</option>
+                            </select>
+                        </div>
+                        <div style="display:flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                            <button type="button" class="btn-portal btn-portal-grey" onclick="toggleModal('editTeamModal', false)">إلغاء</button>
+                            <button type="submit" class="btn-portal btn-portal-blue">تحديث البيانات</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for Assigning Volunteers -->
+        <div class="modal-overlay" id="assignVotersModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>إضافة متطوعين للفريق</span>
+                    <i class="fas fa-times" style="cursor:pointer;" onclick="toggleModal('assignVotersModal', false)"></i>
+                </div>
+                <div class="modal-body">
+                    <div style="margin-bottom: 15px; font-weight: 700; font-size: 0.9rem;">
+                        الفريق: <span id="assignTargetTeam" style="color: var(--blue);"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>ابحث عن متطوعين</label>
+                        <input type="text" id="modalVoterSearch" class="form-control" placeholder="اسم الطالب أو الرقم الجامعي...">
+                    </div>
+                    <div id="modalVoterList" style="max-height: 200px; overflow-y: auto; border: 1px solid #eee; border-radius: 4px; margin-bottom: 20px;">
+                        <div class="modal-voter-item" data-sid="120210456" style="padding: 10px; border-bottom: 1px solid #f9f9f9; display:flex; justify-content: space-between; align-items:center;">
+                            <span class="v-info" style="font-size: 0.85rem;">أحمد سليم الخالدي (120210456) — هندسة البرمجيات</span>
+                            <button class="btn-portal btn-portal-blue btn-add-to-team" style="padding: 2px 8px; font-size: 0.7rem;">إضافة</button>
+                        </div>
+                        <div class="modal-voter-item" data-sid="120220892" style="padding: 10px; border-bottom: 1px solid #f9f9f9; display:flex; justify-content: space-between; align-items:center;">
+                            <span class="v-info" style="font-size: 0.85rem;">سارة يوسف النجار (120220892) — التمريض</span>
+                            <button class="btn-portal btn-portal-blue btn-add-to-team" style="padding: 2px 8px; font-size: 0.7rem;">إضافة</button>
+                        </div>
+                        <div class="modal-voter-item" data-sid="120200123" style="padding: 10px; border-bottom: 1px solid #f9f9f9; display:flex; justify-content: space-between; align-items:center;">
+                            <span class="v-info" style="font-size: 0.85rem;">ياسين محمد عودة (120200123) — تكنولوجيا المعلومات</span>
+                            <button class="btn-portal btn-portal-blue btn-add-to-team" style="padding: 2px 8px; font-size: 0.7rem;">إضافة</button>
+                        </div>
+                        <div class="modal-voter-item" data-sid="120210088" style="padding: 10px; border-bottom: 1px solid #f9f9f9; display:flex; justify-content: space-between; align-items:center;">
+                            <span class="v-info" style="font-size: 0.85rem;">عمر خالد الريس (120210088) — الهندسة المعمارية</span>
+                            <button class="btn-portal btn-portal-blue btn-add-to-team" style="padding: 2px 8px; font-size: 0.7rem;">إضافة</button>
+                        </div>
+                    </div>
+                    <div style="display:flex; justify-content: flex-end;">
+                        <button class="btn-portal btn-portal-grey" onclick="toggleModal('assignVotersModal', false)">إغلاق</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer-banner">
+        نظام إدارة التطوع — الجامعة الإسلامية غزة | بوابة المشرفين
+    </footer>
+
+    <script>
+        // Modal Controls
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        // Global row reference for editing/assigning
+        let currentRow = null;
+
+        function openAssignModal(btn) {
+            currentRow = btn.closest('tr');
+            const teamName = currentRow.querySelector('.team-name').innerText;
+            document.getElementById('assignTargetTeam').innerText = teamName;
+            
+            // Get current members
+            const members = currentRow.getAttribute('data-members').split(',').filter(id => id !== "");
+            
+            // Reset modal internal state
+            document.getElementById('modalVoterSearch').value = "";
+            const items = document.querySelectorAll('.modal-voter-item');
+            items.forEach(item => {
+                item.style.display = "";
+                const sid = item.getAttribute('data-sid');
+                const btn = item.querySelector('.btn-add-to-team');
+                
+                if (members.includes(sid)) {
+                    btn.innerText = "حذف";
+                    btn.className = "btn-portal btn-portal-red btn-add-to-team";
+                } else {
+                    btn.innerText = "إضافة";
+                    btn.className = "btn-portal btn-portal-blue btn-add-to-team";
+                }
+                btn.disabled = false;
+                btn.style.opacity = "1";
+            });
+
+            toggleModal('assignVotersModal', true);
+        }
+
+        // Modal Volunteer Search Logic
+        document.getElementById('modalVoterSearch').addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            const items = document.querySelectorAll('.modal-voter-item');
+            items.forEach(item => {
+                const info = item.querySelector('.v-info').innerText.toLowerCase();
+                item.style.display = info.includes(query) ? 'flex' : 'none';
+            });
+        });
+
+        // Modal "Add/Remove" Toggle Logic
+        document.getElementById('modalVoterList').addEventListener('click', function(e) {
+            const btn = e.target.closest('.btn-add-to-team');
+            if (!btn || !currentRow) return;
+
+            const item = btn.closest('.modal-voter-item');
+            const sid = item.getAttribute('data-sid');
+            let members = currentRow.getAttribute('data-members').split(',').filter(id => id !== "");
+            const votersCell = currentRow.querySelector('.team-voters');
+            let currentCount = parseInt(votersCell.innerText) || 0;
+
+            if (members.includes(sid)) {
+                // Remove Member
+                members = members.filter(id => id !== sid);
+                votersCell.innerText = Math.max(0, currentCount - 1) + " متطوعين";
+                btn.innerText = "إضافة";
+                btn.className = "btn-portal btn-portal-blue btn-add-to-team";
+            } else {
+                // Add Member
+                members.push(sid);
+                votersCell.innerText = (currentCount + 1) + " متطوعين";
+                btn.innerText = "حذف";
+                btn.className = "btn-portal btn-portal-red btn-add-to-team";
+            }
+
+            // Save back to row
+            currentRow.setAttribute('data-members', members.join(','));
+        });
+
+        // Add Team Logic
+        document.getElementById('addTeamForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('addTeamName').value;
+            const dept = document.getElementById('addTeamDept').value;
+            const date = new Date().toISOString().split('T')[0];
+
+            const newRow = createTeamRow(name, dept, '0 متطوعين', 'نشط', date);
+            document.getElementById('teamsTableBody').prepend(newRow);
+            
+            updateTeamsCount(1);
+            this.reset();
+            toggleModal('addTeamModal', false);
+            showPortalAlert({
+                title: 'تم إنشاء الفريق',
+                message: `تمت إضافة فريق <strong>${name}</strong> بنجاح إلى قائمة الفرق التطوعية.`,
+                type: 'success'
+            });
+        });
+
+        // Edit/Delete Delegation
+        document.getElementById('teamsTableBody').addEventListener('click', function(e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            // Delete Action
+            if (e.target.closest('.btn-delete-team')) {
+                const teamName = row.querySelector('.team-name')?.innerText || 'هذا الفريق';
+                showPortalAlert({
+                    title: 'حذف الفريق',
+                    message: `هل أنت متأكد من رغبتك في حذف فريق <strong>${teamName}</strong> نهائياً؟ سيتم حذف جميع بياناته ولا يمكن التراجع.`,
+                    type: 'danger',
+                    confirmText: 'نعم، احذف',
+                    cancelText: 'تراجع',
+                    onConfirm: () => {
+                        row.remove();
+                        updateTeamsCount(-1);
+                        showPortalAlert({
+                            title: 'تم الحذف',
+                            message: `تم حذف فريق <strong>${teamName}</strong> بنجاح من سجلات النظام.`,
+                            type: 'success'
+                        });
+                    }
+                });
+            }
+
+            // Edit Action
+            if (e.target.closest('.btn-edit-team')) {
+                currentRow = row;
+                const name = row.querySelector('.team-name').innerText;
+                const dept = row.querySelector('.team-dept').innerText;
+                const status = row.querySelector('.status-badge').innerText;
+
+                document.getElementById('editTeamName').value = name;
+                document.getElementById('editTeamDept').value = dept;
+                document.getElementById('editTeamStatus').value = status;
+                
+                toggleModal('editTeamModal', true);
+            }
+        });
+
+        // Update Team Logic
+        document.getElementById('editTeamForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!currentRow) return;
+
+            const name = document.getElementById('editTeamName').value;
+            const dept = document.getElementById('editTeamDept').value;
+            const status = document.getElementById('editTeamStatus').value;
+
+            currentRow.querySelector('.team-name').innerText = name;
+            currentRow.querySelector('.team-dept').innerText = dept;
+            
+            const statusBadge = currentRow.querySelector('.status-badge');
+            statusBadge.innerText = status;
+            
+            // Update badge style based on status
+            if (status === 'نشط') {
+                statusBadge.style.background = '#e8f5e9';
+                statusBadge.style.color = '#2e7d32';
+            } else if (status === 'قيد التوزيع') {
+                statusBadge.style.background = '#e3f2fd';
+                statusBadge.style.color = 'var(--blue)';
+            } else {
+                statusBadge.style.background = '#f5f5f5';
+                statusBadge.style.color = '#666';
+            }
+
+            toggleModal('editTeamModal', false);
+            currentRow = null;
+            showPortalAlert({
+                title: 'تم التعديل بنجاح',
+                message: 'تم تحديث بيانات الفريق وحفظها بنجاح في السجل.',
+                type: 'success'
+            });
+        });
+
+        // Search & Filter Logic
+        function filterTeams() {
+            const query = document.getElementById('teamSearchInput').value.toLowerCase();
+            const statusFilter = document.getElementById('teamStatusFilter').value;
+            const rows = document.querySelectorAll('#teamsTableBody tr');
+
+            rows.forEach(row => {
+                const nameText = row.querySelector('.team-name').innerText.toLowerCase();
+                const deptText = row.querySelector('.team-dept').innerText.toLowerCase();
+                const status = row.querySelector('.status-badge').innerText;
+                
+                const matchesSearch = nameText.includes(query) || deptText.includes(query);
+                const matchesStatus = statusFilter === "" || status === statusFilter;
+
+                row.style.display = (matchesSearch && matchesStatus) ? '' : 'none';
+            });
+            updateTeamsCountActive();
+        }
+
+        function updateTeamsCountActive() {
+            const label = document.getElementById('teamsCountLabel');
+            const total = document.querySelectorAll('#teamsTableBody tr').length;
+            const visible = document.querySelectorAll('#teamsTableBody tr:not([style*="display: none"])').length;
+            label.innerText = visible;
+        }
+
+        document.getElementById('teamSearchInput').addEventListener('input', filterTeams);
+        document.getElementById('teamStatusFilter').addEventListener('change', filterTeams);
+
+        // Helper Functions
+        function createTeamRow(name, dept, voters, status, date) {
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-members', "");
+            tr.innerHTML = `
+                <td class="team-name" style="font-weight: 700;">${name}</td>
+                <td class="team-dept">${dept}</td>
+                <td class="team-voters">${voters}</td>
+                <td class="team-status-col"><span class="status-badge" style="background: #e8f5e9; color: #2e7d32; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem;">${status}</span></td>
+                <td class="team-date">${date}</td>
+                <td>
+                    <button class="btn-portal btn-portal-blue" onclick="openAssignModal(this)" style="padding: 5px 10px;" title="إضافة متطوعين"><i class="fas fa-user-plus"></i></button>
+                    <button class="btn-portal btn-portal-grey btn-edit-team" style="padding: 5px 10px;" title="تعديل"><i class="fas fa-edit"></i></button>
+                    <button class="btn-portal btn-portal-red btn-delete-team" style="padding: 5px 10px;" title="حذف"><i class="fas fa-trash"></i></button>
+                </td>
+            `;
+            return tr;
+        }
+
+        function updateTeamsCount(delta) {
+            const label = document.getElementById('teamsCountLabel');
+            let count = parseInt(label.innerText);
+            label.innerText = count + delta;
+        }
+    </script>
+</body>
+</html>

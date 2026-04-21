@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUG VolunGate | لوحة تحكم المشرف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">م</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">د. سامي صالح</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مشرف أكاديمي</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">2</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>قائمة التنبيهات</span>
+                        <span style="color: var(--blue); font-size: 0.7rem;">تحديد كقروء</span>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-icon" style="background: #fdf2f2; color: #e74c3c;"><i class="fas fa-clock"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">تأخر في مهمة: فريق التوجيه</span>
+                            <span class="notif-time">منذ 10 دقائق</span>
+                        </div>
+                    </div>
+                    <div class="notif-item">
+                        <div class="notif-icon" style="background: #e8f5e9; color: #2e7d32;"><i class="fas fa-check-circle"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">اكتمال تنظيم القاعة العامة</span>
+                            <span class="notif-time">منذ ساعة</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — لوحة المشرفين
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="supervisor-dashboard.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-chart-line"></i>
+                <span>نظرة عامة</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">إدارة المتطوعين</div>
+        <a href="supervisor-volunteers.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-plus"></i>
+                <span>إدارة المتطوعين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-teams.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-users-cog"></i>
+                <span>إدارة الفرق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-tasks.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>توزيع المهام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="supervisor-reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-invoice"></i>
+                <span>تقارير الفريق</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="portal-stats-container">
+            <div class="portal-stat-card">
+                <div class="stat-card-title">فرق المتطوعين النشطة</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">3</div>
+                </div>
+                <div class="stat-card-footer">فرق تحت إشرافي المباشر</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">إجمالي المتطوعين</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">5</div>
+                </div>
+                <div class="stat-card-footer">طالب مسجل في فرقي الحالية</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">مهام اليوم المنجزة</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">2</div>
+                </div>
+                <div class="stat-card-footer">من أصل 8 مهام تم توزيعها اليوم</div>
+            </div>
+        </div>
+
+        <div class="section-header-bar">
+            <span>متابعة حالة الفرق والمهام</span>
+            <i class="fas fa-project-diagram"></i>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 15px;">
+            <div style="background: white; border: 1px solid var(--border-color); padding: 20px;">
+                <h3 style="font-size: 0.9rem; margin-bottom: 20px; color: #333;">نسبة إنجاز المهام الأسبوعية</h3>
+                <div style="height: 300px;">
+                    <canvas id="weeklyTasksChart"></canvas>
+                </div>
+            </div>
+            <div style="background: white; border: 1px solid var(--border-color);">
+                <div style="background: #f9f9f9; padding: 12px; border-bottom: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem;">
+                    تنبيهات الحركات اليومية
+                </div>
+                <div style="padding: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div class="navbar-user-avatar" style="background: var(--blue); color: white; width: 25px; height: 25px; font-size: 0.6rem;"><i class="fas fa-info"></i></div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.8rem; font-weight: 700;">تحديث خطة الإحصاء</div>
+                            <div style="font-size: 0.7rem; color: #888;">فريق الإحصاء البيئي</div>
+                        </div>
+                        <div style="font-size: 0.65rem; color: #bbb;">منذ 5 د</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div class="navbar-user-avatar" style="background: var(--green); color: white; width: 25px; height: 25px; font-size: 0.6rem;"><i class="fas fa-check"></i></div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.8rem; font-weight: 700;">إكمال ملف التوعية</div>
+                            <div style="font-size: 0.7rem; color: #888;">فريق التوعية الرقمية</div>
+                        </div>
+                        <div style="font-size: 0.65rem; color: #bbb;">منذ ساعة</div>
+                    </div>
+                </div>
+                <div style="padding: 15px;">
+                    <a href="supervisor-tasks.html" class="btn-portal btn-portal-blue" style="width: 100%; justify-content: center;">عرض كافة المهام</a>
+                </div>
+            </div>
+            <div style="margin-top: 25px;">
+            <div class="section-header-bar" style="background: white; color: var(--blue); border: 1px solid var(--border-color); border-bottom: 2px solid var(--blue);">
+                <span>مركز الوصول السريع</span>
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="quick-action-grid">
+                <a href="supervisor-tasks.html" class="action-btn-card" style="text-decoration: none;">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>توزيع مهمة جديدة</span>
+                </a>
+                <a href="supervisor-volunteers.html" class="action-btn-card" style="text-decoration: none;">
+                    <i class="fas fa-user-plus"></i>
+                    <span>تسجيل متطوع جديد</span>
+                </a>
+                <div class="action-btn-card" onclick="showPortalAlert({ title: 'تعميم عام', message: 'جاري إرسال تنبيه لكافة الفرق النشطة بخصوص التحديثات الجديدة...', type: 'info' })">
+                    <i class="fas fa-bullhorn"></i>
+                    <span>إرسال تعميم عام</span>
+                </div>
+                <a href="supervisor-reports.html" class="action-btn-card" style="text-decoration: none;">
+                    <i class="fas fa-file-download"></i>
+                    <span>تنزيل ملخص اليوم</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <footer class="footer-banner">
+        <i class="fas fa-university" style="margin-left: 8px;"></i>
+        نظام إدارة التطوع — الجامعة الإسلامية غزة | بوابة المشرفين
+    </footer>
+
+    <script>
+        // Chart Configuration
+        const ctx = document.getElementById('weeklyTasksChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'],
+                datasets: [{
+                    label: 'المهام المنجزة',
+                    data: [5, 12, 8, 10, 15, 7],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

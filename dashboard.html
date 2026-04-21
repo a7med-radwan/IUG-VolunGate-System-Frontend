@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUG VolunGate | لوحة تحكم المدير</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">أ</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">أحمد محمد</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مدير النظام</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">3</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>إشعارات الإدارة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — الجامعة الإسلامية غزة
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <span>الصفحة الرئيسية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">لوحة المدير</div>
+        <a href="users.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <span>إدارة المستخدمين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-chart-line"></i>
+                <span>التقارير الإدارية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-cog"></i>
+                <span>إعدادات النظام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="portal-stats-container">
+            <div class="portal-stat-card">
+                <div class="stat-card-title">إجمالي متطوعي النظام</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">1</div>
+                    <div class="circle-digit">5</div>
+                    <div class="circle-digit">8</div>
+                </div>
+                <div class="stat-card-footer">طلاب مسجلين في بنك التطوع الجامعي</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">المشرفين المعتمدين</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">1</div>
+                    <div class="circle-digit">2</div>
+                </div>
+                <div class="stat-card-footer">أعضاء هيئة تدريسية وإدارية</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">المهام المكتملة</div>
+                <div class="stat-card-number-circle" style="color: var(--green);">
+                    <div class="circle-digit" style="background: var(--green);">0</div>
+                    <div class="circle-digit" style="background: var(--green);">8</div>
+                    <div class="circle-digit" style="background: var(--green);">4</div>
+                    <div class="circle-digit" style="background: var(--green);">5</div>
+                </div>
+                <div class="stat-card-footer">مهام تم إنجازها وتوثيق ساعاتها</div>
+            </div>
+        </div>
+
+        <div class="section-header-bar">
+            <span>نظرة عامة على البيانات الإحصائية</span>
+            <i class="fas fa-chart-pie"></i>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-top: 15px;">
+            <div style="background: white; border: 1px solid var(--border-color); padding: 20px;">
+                <h3 style="font-size: 0.9rem; margin-bottom: 20px; color: #333;">توزيع المستخدمين حسب الدور الوظيفي</h3>
+                <div style="height: 300px;">
+                    <canvas id="usersChart"></canvas>
+                </div>
+            </div>
+            <div style="background: white; border: 1px solid var(--border-color);">
+                <div style="background: #f9f9f9; padding: 12px; border-bottom: 1px solid var(--border-color); font-weight: 700; font-size: 0.85rem;">
+                    آخر المستخدمين انضماماً
+                </div>
+                <div style="padding: 10px;">
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div class="navbar-user-avatar" style="background: #eee; color: #333;">أ</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.85rem; font-weight: 700; color: #3498db;">أحمد سليم</div>
+                            <div style="font-size: 0.7rem; color: #888;">طالب متطوع</div>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #bbb;">منذ 10 د</div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee;">
+                        <div class="navbar-user-avatar" style="background: #eee; color: #333;">س</div>
+                        <div style="flex: 1;">
+                            <div style="font-size: 0.85rem; font-weight: 700; color: #3498db;">سارة النجار</div>
+                            <div style="font-size: 0.7rem; color: #888;">طالب متطوع</div>
+                        </div>
+                        <div style="font-size: 0.7rem; color: #bbb;">منذ ساعة</div>
+                    </div>
+                </div>
+                <div style="padding: 15px;">
+                    <a href="users.html" class="btn-portal btn-portal-blue" style="width: 100%; justify-content: center;">إدارة كافة المستخدمين</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-banner">
+        <i class="fas fa-university" style="margin-left: 8px;"></i>
+        نظام إدارة التطوع — الجامعة الإسلامية غزة
+    </footer>
+
+    <script src="assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعدادات النظام | IUG VolunGate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="assets/js/common.js" defer></script>
+    <style>
+        .settings-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .settings-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .settings-row {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+        .settings-label {
+            font-weight: 700;
+            color: #555;
+            font-size: 0.9rem;
+        }
+        .settings-input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            width: 100%;
+            max-width: 400px;
+            font-family: inherit;
+        }
+        .settings-input:focus {
+            border-color: var(--blue);
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">أ</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">أحمد محمد</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مدير النظام</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">3</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>إشعارات الإدارة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">نظام خدمات المتطوعين — إعدادات النظام</div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <span>الصفحة الرئيسية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">لوحة المدير</div>
+        <a href="users.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <span>إدارة المستخدمين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-chart-line"></i>
+                <span>التقارير الإدارية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="settings.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-cog"></i>
+                <span>إعدادات النظام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="section-header-bar">
+            <span>التحكم في إعدادات النظام والهوية البصرية</span>
+            <i class="fas fa-tools"></i>
+        </div>
+
+        <div class="settings-card">
+            <div class="settings-title">
+                <i class="fas fa-university"></i> معلومات المؤسسة التعليمية
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">اسم النظام</div>
+                <input type="text" class="settings-input" value="IUG VolunGate">
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">اسم الجامعة</div>
+                <input type="text" class="settings-input" value="الجامعة الإسلامية غزة">
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">العام الأكاديمي الحالي</div>
+                <input type="text" class="settings-input" value="2025/2026">
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <div class="settings-title">
+                <i class="fas fa-paint-brush"></i> المظهر والهوية البصرية
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">اللون الأساسي للنظام</div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <input type="color" value="#3498db" style="width: 50px; height: 35px; border: none; cursor: pointer;">
+                    <span style="font-size: 0.8rem; color: #666;">سيتم تطبيق اللون على كافة الأزرار والروابط</span>
+                </div>
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">شعار النظام (Logo)</div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="width: 100px; height: 100px; background: #f9f9f9; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        <i class="fas fa-image" style="font-size: 2rem; color: #ccc;"></i>
+                    </div>
+                    <button class="btn-portal btn-portal-blue" style="width: max-content; font-size: 0.75rem;">تغيير الشعار</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-card">
+            <div class="settings-title">
+                <i class="fas fa-shield-alt"></i> إعدادات الأمان والاتصال
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">تفعيل التسجيل الذاتي للطلاب</div>
+                <div>
+                    <label class="switch" style="position: relative; display: inline-block; width: 45px; height: 22px;">
+                        <input type="checkbox" checked style="opacity: 0; width: 0; height: 0;">
+                        <span class="slider round" style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--blue); border-radius: 34px;"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="settings-row">
+                <div class="settings-label">البريد الإلكتروني للإشعارات</div>
+                <input type="email" class="settings-input" value="admin@iug.edu">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <button class="btn-portal btn-portal-blue" style="padding: 12px 30px; font-weight: 800;" onclick="showPortalAlert({ title: 'حفظ الإعدادات', message: 'تم حفظ كافة التغييرات على إعدادات النظام والهوية البصرية بنجاح.', type: 'success' })">
+                <i class="fas fa-save" style="margin-left: 8px;"></i> حفظ كافة التغييرات
+            </button>
+            <button class="btn-portal btn-portal-grey" style="padding: 12px 30px;" onclick="window.history.back()">إلغاء</button>
+        </div>
+    </div>
+
+    <footer class="footer-banner">نظام إدارة التطوع — إعدادات الإدارة المركزية</footer>
+
+</body>
+</html>

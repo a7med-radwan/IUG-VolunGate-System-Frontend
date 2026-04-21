@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUG VolunGate | إدارة المستخدمين</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="assets/js/common.js" defer></script>
+</head>
+
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar">أ</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">أحمد محمد</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">مدير النظام</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">3</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>إشعارات الإدارة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">نظام خدمات المتطوعين — الجامعة الإسلامية غزة</div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="dashboard.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <span>الصفحة الرئيسية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">لوحة المدير</div>
+        <a href="users.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-user-shield"></i>
+                <span>إدارة المستخدمين</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-file-chart-line"></i>
+                <span>التقارير الإدارية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-cog"></i>
+                <span>إعدادات النظام</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="section-header-bar">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <span>إدارة كافة حسابات المستخدمين في النظام</span>
+                <span
+                    style="background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3);">
+                    إجمالي المستخدمين: <span id="usersCountLabel">2</span>
+                </span>
+            </div>
+            <i class="fas fa-user-friends"></i>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn-portal btn-portal-green" onclick="toggleModal('addModal', true)">
+                <i class="fas fa-plus"></i> إضافة مستخدم جديد
+            </button>
+            <div style="flex: 1;"></div>
+            <div style="display: flex; gap: 10px;">
+                <div
+                    style="display: flex; align-items: center; border: 1px solid #ddd; padding: 0 10px; border-radius: 4px; background: #fff;">
+                    <i class="fas fa-search" style="color: #999; font-size: 0.8rem;"></i>
+                    <input type="text" id="userSearchInput" placeholder="البحث بالاسم أو الرقم..."
+                        style="border: none; background: transparent; padding: 8px; font-size: 0.8rem; outline: none; width: 140px;">
+                </div>
+                <select id="userRoleFilter"
+                    style="padding: 7px 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.8rem; outline: none; background: #fff;">
+                    <option value="">جميع الحسابات</option>
+                    <option value="supervisor">مشرف أكاديمي</option>
+                    <option value="student">طالب متطوع</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="background: white; border: 1px solid var(--border-color); border-top: none;">
+            <table class="portal-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">ID</th>
+                        <th style="text-align: right;">الاسم الكامل</th>
+                        <th style="text-align: right;">البريد الجامعي</th>
+                        <th>الرقم الجامعي</th>
+                        <th>نوع الحساب</th>
+                        <th>العمليات</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                    <tr data-role="admin">
+                        <td style="text-align: center;">1</td>
+                        <td class="u-name" style="font-weight: 700;">د. جمال صيام</td>
+                        <td>jsiam@iug.edu</td>
+                        <td class="u-id" style="text-align: center;">---</td>
+                        <td style="text-align: center;"><span style="color: var(--red); font-weight: 700;">مدير نظام</span></td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-edit btn-user-edit" style="color: var(--blue); margin: 0 5px; cursor: pointer;" title="تعديل"></i>
+                            <i class="fas fa-trash btn-user-delete" style="color: var(--red); margin: 0 5px; cursor: pointer;" title="حذف"></i>
+                        </td>
+                    </tr>
+                    <tr data-role="supervisor">
+                        <td style="text-align: center;">2</td>
+                        <td class="u-name" style="font-weight: 700;">أ. رأفت طه</td>
+                        <td>rtaha@iug.edu</td>
+                        <td class="u-id" style="text-align: center;">120202200</td>
+                        <td style="text-align: center;"><span style="color: var(--blue); font-weight: 700;">مشرف أكاديمي</span></td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-edit btn-user-edit" style="color: var(--blue); margin: 0 5px; cursor: pointer;" title="تعديل"></i>
+                            <i class="fas fa-trash btn-user-delete" style="color: var(--red); margin: 0 5px; cursor: pointer;" title="حذف"></i>
+                        </td>
+                    </tr>
+                    <tr data-role="student">
+                        <td style="text-align: center;">3</td>
+                        <td class="u-name" style="font-weight: 700;">أحمد سليم الخالدي</td>
+                        <td>ahmad@iug.edu</td>
+                        <td class="u-id" style="text-align: center;">120210456</td>
+                        <td style="text-align: center;"><span style="color: var(--green); font-weight: 700;">طالب متطوع</span></td>
+                        <td style="text-align: center;">
+                            <i class="fas fa-edit btn-user-edit" style="color: var(--blue); margin: 0 5px; cursor: pointer;" title="تعديل"></i>
+                            <i class="fas fa-trash btn-user-delete" style="color: var(--red); margin: 0 5px; cursor: pointer;" title="حذف"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div
+                style="padding: 20px 15px; border-top: 1px solid #eee; background: #fafafa; display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <ul class="portal-pagination">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i></a></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-left"></i></a></li>
+                </ul>
+                <div style="font-size: 0.75rem; color: #999; font-weight: 600;">عرض سجلات من 1 إلى 10 من إجمالي 25 سجل
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>إضافة مستخدم جديد</span>
+                <i class="fas fa-times" style="cursor: pointer;" onclick="toggleModal('addModal', false)"></i>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>الاسم الكامل (رباعي)</label>
+                    <input type="text" id="newUserName" class="form-control" placeholder="أدخل الاسم الرباعي للطالب أو المشرف">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني</label>
+                    <input type="email" id="newUserEmail" class="form-control" placeholder="example@iug.edu">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group">
+                        <label>نوع الحساب</label>
+                        <select id="newUserRole" class="form-control">
+                            <option value="student">طالب متطوع</option>
+                            <option value="supervisor">مشرف أكاديمي</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>الرقم الجامعي</label>
+                        <input type="text" id="newUserID" class="form-control" placeholder="202X-XXXX">
+                    </div>
+                </div>
+                <div class="form-group" style="border-top: 1px solid #eee; padding-top: 15px;">
+                    <label style="font-weight: 800; display: block; margin-bottom: 10px;">صلاحيات الوصول (للإدارة والمشرفين)</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer;">
+                            <input type="checkbox" checked> إدارة الحسابات
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer;">
+                            <input type="checkbox" checked> عرض التقارير
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer;">
+                            <input type="checkbox"> إعدادات النظام
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.8rem; cursor: pointer;">
+                            <input type="checkbox"> إدارة الفرق
+                        </label>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="btnSaveUser" class="btn-portal btn-portal-blue" style="flex: 1; justify-content: center;">حفظ البيانات</button>
+                    <button class="btn-portal btn-portal-grey" style="flex: 1; justify-content: center;"
+                        onclick="toggleModal('addModal', false)">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-banner">نظام إدارة التطوع — الجامعة الإسلامية غزة</footer>
+
+    <script>
+        function toggleModal(id, show) {
+            document.getElementById(id).style.display = show ? 'flex' : 'none';
+        }
+
+        // Init counter on load
+        function updateUsersCountActive() {
+            const label = document.getElementById('usersCountLabel');
+            const visible = document.querySelectorAll('#usersTableBody tr:not([style*="display: none"])').length;
+            label.innerText = visible;
+        }
+
+        // Role label helper
+        function getRoleLabel(role) {
+            if (role === 'supervisor') return { text: 'مشرف أكاديمي', color: 'var(--blue)' };
+            if (role === 'admin') return { text: 'مدير نظام', color: 'var(--red)' };
+            return { text: 'طالب متطوع', color: 'var(--green)' };
+        }
+
+        // Create User Row
+        function createUserRow(id, name, email, univ_id, role) {
+            const roleInfo = getRoleLabel(role);
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-role', role);
+            tr.innerHTML = `
+                <td style="text-align: center;">${id}</td>
+                <td class="u-name" style="font-weight: 700;">${name}</td>
+                <td>${email}</td>
+                <td class="u-id" style="text-align: center;">${univ_id || '---'}</td>
+                <td style="text-align: center;"><span style="color: ${roleInfo.color}; font-weight: 700;">${roleInfo.text}</span></td>
+                <td style="text-align: center;">
+                    <i class="fas fa-edit btn-user-edit" style="color: var(--blue); margin: 0 5px; cursor: pointer;" title="تعديل"></i>
+                    <i class="fas fa-trash btn-user-delete" style="color: var(--red); margin: 0 5px; cursor: pointer;" title="حذف"></i>
+                </td>
+            `;
+            return tr;
+        }
+
+        // Save New User
+        document.getElementById('btnSaveUser').addEventListener('click', function() {
+            const name = document.getElementById('newUserName').value.trim();
+            const email = document.getElementById('newUserEmail').value.trim();
+            const role = document.getElementById('newUserRole').value;
+            const univ_id = document.getElementById('newUserID').value.trim();
+
+            if (!name || !email) {
+                showPortalAlert({ title: 'بيانات ناقصة', message: 'الرجاء إدخال الاسم الكامل والبريد الإلكتروني على الأقل.', type: 'warning' });
+                return;
+            }
+
+            const tbody = document.getElementById('usersTableBody');
+            const nextId = tbody.querySelectorAll('tr').length + 1;
+            const newRow = createUserRow(nextId, name, email, univ_id, role);
+            tbody.appendChild(newRow);
+
+            // Reset form
+            document.getElementById('newUserName').value = '';
+            document.getElementById('newUserEmail').value = '';
+            document.getElementById('newUserID').value = '';
+
+            toggleModal('addModal', false);
+            updateUsersCountActive();
+            showPortalAlert({ title: 'تم الإضافة', message: `تم تسجيل المستخدم <strong>${name}</strong> بنجاح في النظام.`, type: 'success' });
+        });
+
+        // Event Delegation: Delete & Edit
+        document.getElementById('usersTableBody').addEventListener('click', function(e) {
+            const row = e.target.closest('tr');
+            if (!row) return;
+
+            if (e.target.classList.contains('btn-user-delete')) {
+                const userName = row.querySelector('.u-name')?.innerText || 'هذا المستخدم';
+                showPortalAlert({
+                    title: 'حذف المستخدم',
+                    message: `هل أنت متأكد من رغبتك في حذف حساب <strong>${userName}</strong> نهائياً من النظام؟ لا يمكن التراجع عن هذا الإجراء.`,
+                    type: 'danger',
+                    confirmText: 'نعم، احذف',
+                    cancelText: 'تراجع',
+                    onConfirm: () => {
+                        row.remove();
+                        updateUsersCountActive();
+                        showPortalAlert({ title: 'تم الحذف', message: `تم حذف حساب <strong>${userName}</strong> بنجاح من سجلات النظام.`, type: 'success' });
+                    }
+                });
+            }
+
+            if (e.target.classList.contains('btn-user-edit')) {
+                const name = row.querySelector('.u-name')?.innerText;
+                showPortalAlert({ title: 'تعديل البيانات', message: `سيتم تفعيل نموذج التعديل للمستخدم <strong>${name}</strong> قريباً.`, type: 'info' });
+            }
+        });
+
+        // Filtering Logic
+        function applyUserFilters() {
+            const query = document.getElementById('userSearchInput').value.toLowerCase();
+            const role = document.getElementById('userRoleFilter').value;
+            const rows = document.querySelectorAll('#usersTableBody tr');
+
+            rows.forEach(row => {
+                const name = row.querySelector('.u-name')?.innerText.toLowerCase() || '';
+                const id = row.querySelector('.u-id')?.innerText.toLowerCase() || '';
+                const userRole = row.getAttribute('data-role');
+
+                const matchesSearch = name.includes(query) || id.includes(query);
+                const matchesRole = role === "" || userRole === role;
+
+                row.style.display = (matchesSearch && matchesRole) ? "" : "none";
+            });
+            updateUsersCountActive();
+        }
+
+        // Event Listeners
+        document.getElementById('userSearchInput').addEventListener('input', applyUserFilters);
+        document.getElementById('userRoleFilter').addEventListener('change', applyUserFilters);
+
+        // Init
+        updateUsersCountActive();
+    </script>
+</body>
+
+</html>
