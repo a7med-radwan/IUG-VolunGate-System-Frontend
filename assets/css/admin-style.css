@@ -147,6 +147,17 @@ body { background-color: var(--bg-light); color: var(--text-main); direction: rt
 .btn-portal-red   { background: var(--red); color: white; }
 .btn-portal:hover { opacity: 0.9; transform: translateY(-1px); }
 
+/* Table Action Buttons */
+.action-btn {
+    padding: 6px 12px; border-radius: 4px; font-size: 0.8rem;
+    border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;
+    text-decoration: none; color: white; transition: all 0.2s; font-weight: 600;
+}
+.action-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.view-btn { background: var(--blue); }
+.edit-btn { background: #f39c12; }
+.delete-btn { background: var(--red); }
+
 /* ── Pagination ── */
 .portal-pagination { display: flex; list-style: none; padding: 0; margin: 0; gap: 6px; direction: ltr; justify-content: center; align-items: center; }
 .portal-pagination li a, .portal-pagination li span {
@@ -282,4 +293,93 @@ body { background-color: var(--bg-light); color: var(--text-main); direction: rt
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scaleIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+/* ── Mobile Responsiveness ── */
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.mobile-sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 50px; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+@media (max-width: 992px) {
+    /* Hide some info on medium screens */
+    .navbar-user-info > div:nth-child(2) {
+        display: none;
+    }
+    
+    /* Convert grids with 2fr 1fr etc to 1fr on small screens */
+    div[style*="grid-template-columns: 2fr 1fr"],
+    div[style*="grid-template-columns: 1fr 2fr"],
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .mobile-sidebar-overlay.active {
+        display: block;
+    }
+
+    .content-wrapper {
+        margin-right: 0;
+        padding: 15px 10px;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    .navbar-brand-title {
+        font-size: 0.9rem;
+        flex-direction: row-reverse;
+    }
+    
+    /* Hide some text in navbar to fit mobile */
+    .navbar-brand-title span.hide-mobile {
+        display: none;
+    }
+    
+    /* Fix table responsiveness */
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    /* Fix modal */
+    .modal-content {
+        width: 95%;
+        margin: 0 10px;
+    }
+    
+    /* Action bar stack */
+    .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .action-bar select, .action-bar input, .action-bar button {
+        width: 100%;
+    }
+}
 

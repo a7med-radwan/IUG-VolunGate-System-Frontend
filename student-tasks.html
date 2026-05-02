@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUG VolunGate | مهامي اليومية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar" style="background: var(--blue);">ط</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">طالب متطوع</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">طالب</div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — الجامعة الإسلامية غزة
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="student-dashboard.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-home"></i>
+                <span>الرئيسية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">بوابة المتطوع</div>
+        <a href="student-tasks.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>مهامي اليومية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="student-reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <span>سجل التطوع والتقارير</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="section-header-bar">
+            <span>إدارة المهام اليومية</span>
+            <i class="fas fa-tasks"></i>
+        </div>
+
+        <div style="background: white; border: 1px solid var(--border-color); margin-top: 15px;">
+            <div style="padding: 15px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1rem; color: #333;">قائمة المهام الموكلة إليك</h3>
+                <div style="display: flex; gap: 10px;">
+                    <select id="taskStatusFilter" class="form-control" style="padding: 5px 10px; width: auto; font-size: 0.85rem; display: inline-block;">
+                        <option value="">جميع الحالات</option>
+                        <option value="new">جديدة</option>
+                        <option value="in_progress">قيد التنفيذ</option>
+                        <option value="completed">مكتملة</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div style="padding: 15px;">
+                <!-- Task Card 1 -->
+                <div class="task-card" data-task-id="TSK-105" data-status="in_progress" style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 15px; padding: 15px; background: #fafafa; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: bold; color: var(--blue);">#TSK-105</span>
+                            <h4 style="margin: 0; font-size: 1.1rem;">تحديث بيانات الخريجين في النظام</h4>
+                        </div>
+                        <span class="status-badge status-active">قيد التنفيذ</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; font-size: 0.9rem;">
+                        <div>
+                            <p style="margin: 5px 0;"><strong>وصف المهمة:</strong> يرجى الدخول إلى نظام شؤون الخريجين وتحديث بيانات التواصل للدفعة الأخيرة.</p>
+                            <p style="margin: 5px 0;"><strong>المشرف:</strong> د. محمود خليل</p>
+                        </div>
+                        <div>
+                            <p style="margin: 5px 0;"><i class="fas fa-calendar-alt" style="color: #888;"></i> <strong>تاريخ الاستحقاق:</strong> 25 أكتوبر 2023</p>
+                            <p style="margin: 5px 0;"><i class="fas fa-clock" style="color: #888;"></i> <strong>الساعات المقدرة:</strong> 3 ساعات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-actions" style="border-top: 1px dashed #ccc; padding-top: 15px; display: flex; justify-content: flex-end;">
+                        <button class="btn-portal btn-portal-green" onclick="openTaskModal('TSK-105')">
+                            <i class="fas fa-check-circle" style="margin-left: 5px;"></i> إنجاز وإضافة تفاصيل
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Task Card 2 -->
+                <div class="task-card" data-task-id="TSK-106" data-status="new" style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 15px; padding: 15px; background: #fafafa; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: bold; color: var(--blue);">#TSK-106</span>
+                            <h4 style="margin: 0; font-size: 1.1rem;">مراجعة ملفات المنح الدراسية</h4>
+                        </div>
+                        <span class="status-badge" style="background: #f1c40f; color: #fff;">جديدة</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; font-size: 0.9rem;">
+                        <div>
+                            <p style="margin: 5px 0;"><strong>وصف المهمة:</strong> مراجعة أوراق المتقدمين لمنحة الامتياز والتأكد من استيفاء الشروط.</p>
+                            <p style="margin: 5px 0;"><strong>المشرف:</strong> د. محمود خليل</p>
+                        </div>
+                        <div>
+                            <p style="margin: 5px 0;"><i class="fas fa-calendar-alt" style="color: #888;"></i> <strong>تاريخ الاستحقاق:</strong> 26 أكتوبر 2023</p>
+                            <p style="margin: 5px 0;"><i class="fas fa-clock" style="color: #888;"></i> <strong>الساعات المقدرة:</strong> 2 ساعات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-actions" style="border-top: 1px dashed #ccc; padding-top: 15px; display: flex; justify-content: flex-end; gap: 10px;">
+                        <button class="btn-portal btn-portal-blue" onclick="startTask('TSK-106', this)">
+                            <i class="fas fa-play" style="margin-left: 5px;"></i> البدء في التنفيذ
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Task Card 3 -->
+                <div class="task-card" data-task-id="TSK-101" data-status="completed" style="border: 1px solid #eee; border-radius: 5px; margin-bottom: 15px; padding: 15px; background: #fff; opacity: 0.8; transition: all 0.3s;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-weight: bold; color: var(--blue);">#TSK-101</span>
+                            <h4 style="margin: 0; font-size: 1.1rem;">ترتيب أرشيف المكتبة المركزية</h4>
+                        </div>
+                        <span class="status-badge status-inactive">مكتملة</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; font-size: 0.9rem;">
+                        <div>
+                            <p style="margin: 5px 0;"><strong>وصف المهمة:</strong> إعادة ترتيب الكتب في قسم العلوم التطبيقية.</p>
+                            <p style="margin: 5px 0;"><strong>المشرف:</strong> أ. سعيد المصري</p>
+                        </div>
+                        <div>
+                            <p style="margin: 5px 0;"><i class="fas fa-calendar-alt" style="color: #888;"></i> <strong>تاريخ الاستحقاق:</strong> 20 أكتوبر 2023</p>
+                            <p style="margin: 5px 0;"><i class="fas fa-clock" style="color: #888;"></i> <strong>الساعات المعتمدة:</strong> 4 ساعات</p>
+                        </div>
+                    </div>
+                    
+                    <div class="task-actions">
+                        <div style="background: #e8f6f3; padding: 10px; border-radius: 4px; border-right: 3px solid var(--green); font-size: 0.85rem; width: 100%;">
+                            <strong>ملاحظات التنفيذ (منك):</strong> تم الانتهاء من ترتيب الرفوف من 1 إلى 5 بالكامل وجرد الكتب التالفة.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Task Completion -->
+    <div id="taskCompleteModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 style="font-size: 1.2rem; color: #333; margin: 0;">إنجاز المهمة وإضافة التفاصيل</h2>
+                <button class="close-modal" onclick="closeTaskModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #888; transition: color 0.2s;" onmouseover="this.style.color='#e74c3c'" onmouseout="this.style.color='#888'"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="taskCompleteForm">
+                    <div class="form-group">
+                        <label class="form-label">رقم المهمة</label>
+                        <input type="text" id="modalTaskId" class="form-control" disabled style="background: #f5f5f5;">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">تفاصيل الإنجاز / ملاحظات (إلزامي)</label>
+                        <textarea class="form-control" rows="4" placeholder="اكتب بالتفصيل ما تم إنجازه، وأي ملاحظات تود إرسالها للمشرف..." required></textarea>
+                        <small style="color: #666; font-size: 0.75rem; display: block; margin-top: 5px;"><i class="fas fa-info-circle"></i> هذه التفاصيل سيطلع عليها المشرف لاعتماد ساعاتك التطوعية.</small>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">مرفقات (اختياري)</label>
+                        <input type="file" class="form-control" style="padding: 8px;">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="padding: 15px 25px 25px; display: flex; gap: 10px; justify-content: flex-end; border-top: 1px solid #eee; background: #fdfdfd;">
+                <button type="button" class="btn-portal btn-portal-red" onclick="closeTaskModal()">إلغاء</button>
+                <button type="button" class="btn-portal btn-portal-green" onclick="submitTaskComplete()">تأكيد الإنجاز</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-banner">
+        <i class="fas fa-university" style="margin-left: 8px;"></i>
+        نظام إدارة التطوع — الجامعة الإسلامية غزة
+    </footer>
+
+    <script>
+        // Modal Logic
+        function openTaskModal(taskId) {
+            document.getElementById('modalTaskId').value = '#' + taskId;
+            document.getElementById('taskCompleteModal').style.display = 'flex';
+        }
+
+        function closeTaskModal() {
+            document.getElementById('taskCompleteModal').style.display = 'none';
+        }
+
+        function submitTaskComplete() {
+            closeTaskModal();
+            showPortalAlert({
+                title: 'تم الإنجاز بنجاح',
+                message: 'تم إرسال تفاصيل الإنجاز والملاحظات للمشرف بانتظار الاعتماد وتوثيق الساعات.',
+                type: 'success'
+            });
+            // Update UI (Simulation)
+            const taskId = document.getElementById('modalTaskId').value;
+            const taskCard = document.querySelector(`.task-card[data-task-id="${taskId.replace('#', '')}"]`);
+            if(taskCard) {
+                taskCard.dataset.status = 'completed';
+                taskCard.querySelector('.status-badge').className = 'status-badge status-inactive';
+                taskCard.querySelector('.status-badge').textContent = 'مكتملة';
+                taskCard.style.opacity = '0.8';
+                taskCard.querySelector('.task-actions').innerHTML = `
+                    <div style="background: #e8f6f3; padding: 10px; border-radius: 4px; border-right: 3px solid var(--green); font-size: 0.85rem; width: 100%;">
+                        <strong>تم التسليم:</strong> جاري مراجعة المشرف لاعتماد الساعات.
+                    </div>
+                `;
+            }
+        }
+
+        // Start Task Logic
+        function startTask(taskId, btnElement) {
+            showPortalAlert({
+                title: 'البدء في التنفيذ',
+                message: 'هل أنت متأكد من بدء تنفيذ هذه المهمة الآن؟ سيتم تغيير حالتها إلى "قيد التنفيذ".',
+                type: 'info',
+                confirmText: 'نعم، ابدأ',
+                cancelText: 'إلغاء',
+                onConfirm: () => {
+                    // Update UI (Simulation)
+                    const taskCard = document.querySelector(`.task-card[data-task-id="${taskId}"]`);
+                    if(taskCard) {
+                        taskCard.dataset.status = 'in_progress';
+                        taskCard.querySelector('.status-badge').className = 'status-badge status-active';
+                        taskCard.querySelector('.status-badge').textContent = 'قيد التنفيذ';
+                        taskCard.querySelector('.task-actions').innerHTML = `
+                            <button class="btn-portal btn-portal-green" onclick="openTaskModal('${taskId}')">
+                                <i class="fas fa-check-circle" style="margin-left: 5px;"></i> إنجاز وإضافة تفاصيل
+                            </button>
+                        `;
+                    }
+                    showPortalAlert({
+                        title: 'تم التحديث',
+                        message: 'تم تحديث حالة المهمة إلى "قيد التنفيذ". بالتوفيق!',
+                        type: 'success'
+                    });
+                }
+            });
+        }
+
+        // Filter Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterSelect = document.getElementById('taskStatusFilter');
+            const taskCards = document.querySelectorAll('.task-card');
+
+            if(filterSelect) {
+                filterSelect.addEventListener('change', (e) => {
+                    const status = e.target.value;
+                    taskCards.forEach(card => {
+                        if(status === '' || card.dataset.status === status) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

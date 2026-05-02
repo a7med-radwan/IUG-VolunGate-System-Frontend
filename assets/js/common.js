@@ -105,3 +105,64 @@ function showPortalAlert(options) {
     }
 }
 
+/**
+ * Initializes the mobile hamburger menu toggle
+ */
+function initMobileMenu() {
+    const navbarBrand = document.querySelector('.navbar-brand-title');
+    // Only inject if it's not already there and we are inside a dashboard page
+    if (navbarBrand && !document.querySelector('.mobile-menu-toggle')) {
+        
+        // Wrap the text in a span so we can hide part of it on very small screens if needed
+        if(navbarBrand.childNodes.length > 2) {
+            let textNode = Array.from(navbarBrand.childNodes).find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim().length > 0);
+            if(textNode) {
+                const text = textNode.textContent;
+                const span = document.createElement('span');
+                span.textContent = text;
+                navbarBrand.replaceChild(span, textNode);
+            }
+        }
+
+        const toggleBtn = document.createElement('button');
+        toggleBtn.className = 'mobile-menu-toggle';
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        
+        // Insert toggle at the beginning
+        navbarBrand.insertBefore(toggleBtn, navbarBrand.firstChild);
+
+        const sidebar = document.querySelector('.sidebar');
+        if(sidebar) {
+            const overlay = document.createElement('div');
+            overlay.className = 'mobile-sidebar-overlay';
+            document.body.appendChild(overlay);
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            
+            // Close sidebar when clicking a link on mobile
+            const navLinks = sidebar.querySelectorAll('.nav-item');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                });
+            });
+        }
+    }
+}
+
+// Ensure initMobileMenu is called on load
+document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
+});

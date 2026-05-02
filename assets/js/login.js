@@ -74,12 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (role === 'supervisor') {
             window.location.href = 'supervisor-dashboard.html';
         } else {
-            // Students or others can go to a generic landing or specific student page
-            showPortalAlert({
-                title: 'قيد التطوير',
-                message: 'عذراً، واجهة الطالب الخاصة بالنظام هي حالياً قيد التطوير والبرمجة. ترقبوا الإطلاق قريباً!',
-                type: 'info'
-            });
+            window.location.href = 'student-dashboard.html';
         }
     });
 });

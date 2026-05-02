@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IUG VolunGate | لوحة الطالب المتطوع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin-style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="assets/js/common.js" defer></script>
+</head>
+<body>
+    <header class="top-navbar">
+        <div class="navbar-user-actions">
+            <div class="navbar-user-info">
+                <div class="navbar-user-avatar" style="background: var(--blue);">ط</div>
+                <div>
+                    <div style="font-weight: 700; font-size: 0.85rem;">طالب متطوع</div>
+                    <div style="font-size: 0.7rem; opacity: 0.8;">طالب</div>
+                </div>
+            </div>
+            <div class="bell-container">
+                <i class="fas fa-bell bell-icon"></i>
+                <span class="bell-badge">2</span>
+                <div class="notifications-dropdown">
+                    <div class="notif-header">
+                        <span>إشعارات التطوع</span>
+                        <span style="color: var(--blue); font-size: 0.7rem; cursor: pointer;" onclick="showPortalAlert({title: 'تحديث', message: 'تم تحديد جميع الإشعارات كمقروءة بنجاح.', type: 'success'})">تحديد كمقروء</span>
+                    </div>
+                    <div class="notif-item" onclick="showPortalAlert({title: 'مهمة جديدة', message: 'لقد تم تكليفك بمهمة جديدة من قبل د. محمود خليل. يرجى مراجعة صفحة المهام.', type: 'info'})">
+                        <div class="notif-icon" style="background: #e3f2fd; color: #1976d2;"><i class="fas fa-tasks"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">تم تكليفك بمهمة جديدة</span>
+                            <span class="notif-time">منذ ساعتين</span>
+                        </div>
+                    </div>
+                    <div class="notif-item" onclick="showPortalAlert({title: 'اعتماد ساعات', message: 'تم اعتماد 4 ساعات تطوعية في رصيدك.', type: 'success'})">
+                        <div class="notif-icon" style="background: #e8f5e9; color: #2e7d32;"><i class="fas fa-check-circle"></i></div>
+                        <div class="notif-content">
+                            <span class="notif-title">تم اعتماد ساعات تطوعية</span>
+                            <span class="notif-time">قبل يومين</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar-brand-title">
+            <i class="fas fa-hand-holding-heart" style="margin-left: 8px; opacity: 0.8;"></i>
+            نظام خدمات المتطوعين — الجامعة الإسلامية غزة
+        </div>
+    </header>
+
+    <aside class="sidebar">
+        <a href="student-dashboard.html" class="nav-item active">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-home"></i>
+                <span>الرئيسية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="sidebar-section-label">بوابة المتطوع</div>
+        <a href="student-tasks.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-tasks"></i>
+                <span>مهامي اليومية</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <a href="student-reports.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px;">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <span>سجل التطوع والتقارير</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+        <div class="nav-spacer"></div>
+        <div class="nav-divider"></div>
+        <a href="index.html" class="nav-item">
+            <span style="display:flex; align-items:center; gap:8px; color: #b8c7ce;">
+                <i class="nav-icon fas fa-sign-out-alt" style="color: #e74c3c;"></i>
+                <span>تسجيل الخروج</span>
+            </span>
+            <i class="nav-arrow fas fa-chevron-left"></i>
+        </a>
+    </aside>
+
+    <div class="content-wrapper">
+        <div class="portal-stats-container">
+            <div class="portal-stat-card">
+                <div class="stat-card-title">إجمالي الساعات التطوعية</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">4</div>
+                    <div class="circle-digit">5</div>
+                </div>
+                <div class="stat-card-footer">ساعة معتمدة حتى الآن</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">المهام المنجزة</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">1</div>
+                    <div class="circle-digit">2</div>
+                </div>
+                <div class="stat-card-footer">مهمة تم تنفيذها بنجاح</div>
+            </div>
+            <div class="portal-stat-card">
+                <div class="stat-card-title">المهام قيد التنفيذ</div>
+                <div class="stat-card-number-circle">
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">0</div>
+                    <div class="circle-digit">3</div>
+                </div>
+                <div class="stat-card-footer">مهام تحتاج إلى استكمال</div>
+            </div>
+        </div>
+
+        <div class="section-header-bar">
+            <span>المهام اليومية المطلوبة</span>
+            <i class="fas fa-calendar-day"></i>
+        </div>
+
+        <div style="background: white; border: 1px solid var(--border-color); margin-top: 15px; padding: 15px;">
+            <div class="table-container">
+                <table class="portal-table">
+                    <thead>
+                        <tr>
+                            <th>رقم المهمة</th>
+                            <th>عنوان المهمة</th>
+                            <th>المشرف</th>
+                            <th>تاريخ الاستحقاق</th>
+                            <th>الحالة</th>
+                            <th>إجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#TSK-105</td>
+                            <td>تحديث بيانات الخريجين في النظام</td>
+                            <td>د. محمود خليل</td>
+                            <td>اليوم</td>
+                            <td><span class="status-badge status-active">قيد التنفيذ</span></td>
+                            <td>
+                                <a href="student-tasks.html" class="action-btn view-btn"><i class="fas fa-eye"></i> عرض</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#TSK-106</td>
+                            <td>مراجعة ملفات المنح الدراسية</td>
+                            <td>د. محمود خليل</td>
+                            <td>غداً</td>
+                            <td><span class="status-badge" style="background: #f1c40f; color: #fff;">جديدة</span></td>
+                            <td>
+                                <a href="student-tasks.html" class="action-btn view-btn"><i class="fas fa-eye"></i> عرض</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 15px; text-align: left;">
+                <a href="student-tasks.html" class="btn-portal btn-portal-blue">عرض كافة المهام <i class="fas fa-arrow-left" style="margin-right: 5px;"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-banner">
+        <i class="fas fa-university" style="margin-left: 8px;"></i>
+        نظام إدارة التطوع — الجامعة الإسلامية غزة
+    </footer>
+</body>
+</html>
